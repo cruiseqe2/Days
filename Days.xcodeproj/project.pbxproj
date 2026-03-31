@@ -9,22 +9,32 @@
 /* Begin PBXBuildFile section */
 		65DBD1B62F79F9D90097916B /* SQLiteData in Frameworks */ = {isa = PBXBuildFile; productRef = 65DBD1B52F79F9D90097916B /* SQLiteData */; };
 		65DBD1C72F7B22890097916B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65DBD1C12F7B22890097916B /* Assets.xcassets */; };
-		65DBD1C82F7B22890097916B /* PersonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBD1C22F7B22890097916B /* PersonListView.swift */; };
-		65DBD1C92F7B22890097916B /* DatabaseBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBD1C32F7B22890097916B /* DatabaseBootstrap.swift */; };
 		65DBD1CA2F7B22890097916B /* DaysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBD1C42F7B22890097916B /* DaysApp.swift */; };
-		65DBD1CB2F7B22890097916B /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBD1C52F7B22890097916B /* Person.swift */; };
-		65DBD1CD2F7B2AB60097916B /* Database+Seeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBD1CC2F7B2AB60097916B /* Database+Seeds.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		65DBD19B2F79DC830097916B /* Days.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Days.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65DBD1C12F7B22890097916B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		65DBD1C22F7B22890097916B /* PersonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonListView.swift; sourceTree = "<group>"; };
-		65DBD1C32F7B22890097916B /* DatabaseBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseBootstrap.swift; sourceTree = "<group>"; };
 		65DBD1C42F7B22890097916B /* DaysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysApp.swift; sourceTree = "<group>"; };
-		65DBD1C52F7B22890097916B /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
-		65DBD1CC2F7B2AB60097916B /* Database+Seeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Database+Seeds.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		65DBD1CE2F7C7CB10097916B /* Database */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Database;
+			sourceTree = "<group>";
+		};
+		65DBD1CF2F7C7CCA0097916B /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		65DBD1D02F7C7CE80097916B /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		65DBD1982F79DC830097916B /* Frameworks */ = {
@@ -59,10 +69,9 @@
 			children = (
 				65DBD1C12F7B22890097916B /* Assets.xcassets */,
 				65DBD1C42F7B22890097916B /* DaysApp.swift */,
-				65DBD1C22F7B22890097916B /* PersonListView.swift */,
-				65DBD1CC2F7B2AB60097916B /* Database+Seeds.swift */,
-				65DBD1C32F7B22890097916B /* DatabaseBootstrap.swift */,
-				65DBD1C52F7B22890097916B /* Person.swift */,
+				65DBD1CE2F7C7CB10097916B /* Database */,
+				65DBD1CF2F7C7CCA0097916B /* Models */,
+				65DBD1D02F7C7CE80097916B /* Views */,
 			);
 			path = Days;
 			sourceTree = "<group>";
@@ -81,6 +90,11 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				65DBD1CE2F7C7CB10097916B /* Database */,
+				65DBD1CF2F7C7CCA0097916B /* Models */,
+				65DBD1D02F7C7CE80097916B /* Views */,
 			);
 			name = Days;
 			packageProductDependencies = (
@@ -143,11 +157,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65DBD1C82F7B22890097916B /* PersonListView.swift in Sources */,
-				65DBD1C92F7B22890097916B /* DatabaseBootstrap.swift in Sources */,
 				65DBD1CA2F7B22890097916B /* DaysApp.swift in Sources */,
-				65DBD1CB2F7B22890097916B /* Person.swift in Sources */,
-				65DBD1CD2F7B2AB60097916B /* Database+Seeds.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

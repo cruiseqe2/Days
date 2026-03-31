@@ -16,4 +16,4 @@ struct Person: Identifiable {
     var notes = ""
 }
 
-
+extension Person.Draft: Identifiable {}
