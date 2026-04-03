@@ -59,20 +59,12 @@ struct PersonForm: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(role: .confirm) {
-//                        let newPerson = Person(
-//                            id: UUID(),
-//                            name: name,
-//                            birthDate: birthDate,
-//                            notes: notes
-//                        )
                         person.name = name
                         person.birthDate = birthDate
                         person.notes = notes
                         withErrorReporting {
                             try database.write { db in
                                 try Person
-//                                    .insert { newPerson }
-//                                    .insert { person }
                                     .upsert { person }
                                     .execute(db)
                             }
@@ -90,11 +82,7 @@ struct PersonForm: View {
     }
 }
 
-//#Preview {
-//    PersonForm()
-//}
-
-struct PersonForm_Previews: PreviewProvider {
+struct PersonFormPreview: PreviewProvider {
     static var previews: some View {
         PersonForm(person: Person.Draft())
     }
