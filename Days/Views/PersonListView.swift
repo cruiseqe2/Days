@@ -8,6 +8,14 @@
 import SQLiteData
 import SwiftUI
 
+@Selection
+struct PersonWithGiftCount: Identifiable {
+    let person: Person
+    let giftCount: Int
+    
+    var id: Person.ID { person.id }
+}
+    
 @MainActor
 @Observable
 class PersonListModel {
@@ -16,7 +24,7 @@ class PersonListModel {
     }
     
     @ObservationIgnored
-    @FetchAll(Person.none) var people
+    @FetchAll(PersonWithGiftCount.none) var peopleWithGiftCount
     
     @ObservationIgnored
     @Dependency(\.defaultDatabase) var database
@@ -26,7 +34,7 @@ class PersonListModel {
     var sortAscending = true {
         didSet {
             Task {
-                await reloadData()
+                await reloadPeopleAndCount()
             }
         }
     }
@@ -34,7 +42,7 @@ class PersonListModel {
     var sortField: SortField = .name {
         didSet {
             Task {
-                await reloadData()
+                await reloadPeopleAndCount()
             }
         }
     }
@@ -42,14 +50,14 @@ class PersonListModel {
     var searchText = "" {
         didSet {
             Task {
-                await reloadData()
+                await reloadPeopleAndCount()
             }
         }
     }
     
     init() {
         Task {
-            await reloadData()
+            await reloadPeopleAndCount()
         }
     }
     
@@ -65,12 +73,13 @@ class PersonListModel {
     
     var searchTask: Task<Void, Never>?
     
-    func reloadData() async {
+    func reloadPeopleAndCount() async {
         searchTask?.cancel()
         searchTask = Task {
             await withErrorReporting {
-                _ = try await $people.load(
-                    Person.all
+                _ = try await $peopleWithGiftCount.load(
+                    Person
+                        .group(by: \.id)
                         .order {
                             switch sortField {
                             case .name:
@@ -90,6 +99,12 @@ class PersonListModel {
                         .where {
                             $0.name.contains(searchText) ||
                             $0.notes.contains(searchText)
+                        }
+                        .leftJoin(Gift.all) {
+                            $0.id.eq($1.personID)
+                        }
+                        .select {
+                            PersonWithGiftCount.Columns(person: $0, giftCount: $1.count())
                         },
                     animation: .default
                 )
@@ -97,17 +112,17 @@ class PersonListModel {
         }
     }
 }
-
-
+    
 struct PersonListView: View {
     @State private var model = PersonListModel()
     var body: some View {
         NavigationStack {
             Group {
-                if model.people.isEmpty {
+                if model.peopleWithGiftCount.isEmpty {
                     ContentUnavailableView("No People", systemImage: "person.2")
                 } else {
-                    List(model.people) { person in
+                    List(model.peopleWithGiftCount) { personWithGiftCount in
+                        let person = personWithGiftCount.person
                         NavigationLink {
                             PersonForm(person: Person.Draft(person))
                         } label: {
@@ -125,6 +140,10 @@ struct PersonListView: View {
                                 Text(person.notes)
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
+                                Text("^[\(personWithGiftCount.giftCount) gifts](inflect: true)")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
                             }
                         }
                         .swipeActions(edge: .trailing) {
